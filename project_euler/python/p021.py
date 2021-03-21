@@ -8,7 +8,7 @@ def d(n):
     divSum = 0
     for divisor in divList:
         divSum += divisor
-    return divSum    
+    return divSum
 
 
 amicSum = 0
@@ -22,5 +22,5 @@ for a in range(1, 10000):
 
         if dB == a:
             amicSum += a + b
-    
+
 print(amicSum)

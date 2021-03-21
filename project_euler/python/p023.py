@@ -1,6 +1,7 @@
 # Non-abundant sums
 import datetime
 
+
 def is_prime(num):
     if num > 1:
         for fac in range(2, int(num ** 0.5 + 1)):
@@ -35,7 +36,7 @@ print("OK\n")
 
 print("Calculating sum...")
 total_sum = 0
-for i in range(1,28123):
+for i in range(1, 28123):
     if i in abundant_sums:
         continue
     else:

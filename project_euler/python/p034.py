@@ -3,7 +3,7 @@
 import math
 
 answer = 0
-for num in range(3, 99999): #should increase range, but need to optimise 
+for num in range(3, 99999):  # Should increase range, but need to optimise
     num_string = str(num)
     digits_fac_sum = 0
 

@@ -23,10 +23,8 @@ for prime in primes:
     for _ in range(len(prime_string)):
         prime_string += prime_string[0]
         prime_string = prime_string[1:]
-
         if not is_prime(int(prime_string)):
             failed = True
-    
     if not failed:
         primes_circular.append(prime)
 
