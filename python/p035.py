@@ -1,31 +1,22 @@
 # Circular primes
 
-def is_prime(num):
-    if num > 1:
-        for fac in range(2, int((num ** 0.5) + 1)):
-            if (num % fac) == 0:
-                return False
-        return True
+composites = set()
+primes = set()
+for i in range(2, 1_000_000):
+    if i not in composites:
+        primes.add(str(i))
+        for p in range(i * 2, 1_000_000, i):
+            composites.add(p)
 
-
-primes = []
-
-for num in range(2, 1000000):
-    if is_prime(num):
-        primes.append(num)
-
-primes_circular = []
-
+answer = 0
 for prime in primes:
-    prime_string = str(prime)
-
     failed = False
-    for _ in range(len(prime_string)):
-        prime_string += prime_string[0]
-        prime_string = prime_string[1:]
-        if not is_prime(int(prime_string)):
+    for _ in range(len(prime)):
+        prime = prime[-1] + prime[:-1]
+        if prime not in primes:
             failed = True
+            break
     if not failed:
-        primes_circular.append(prime)
+        answer += 1
 
-print(len(primes_circular))
+print(answer)

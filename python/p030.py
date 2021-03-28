@@ -1,12 +1,8 @@
 # Digit fifth powers
 
-numbers = []
+answer = 0
+for number in range(2, 1_000_000):
+    if number == sum(int(digit) ** 5 for digit in str(number)):
+        answer += number
 
-for number in range(2, 999999):
-    digits_5 = []
-    for digit in str(number):
-        digits_5.append(int(digit) ** 5)
-    if sum(digits_5) == number:
-        numbers.append(number)
-
-print(sum(numbers))
+print(answer)

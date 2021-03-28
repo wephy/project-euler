@@ -1,24 +1,26 @@
 # Digit cancelling fractions
 
 digit_cancelling_fractions = []
-for numerator in range(11, 100):
-    if str(numerator)[1] != '0':
-        for denominator in range(numerator, 100):
-            if (str(denominator)[1] != '0'
-                and numerator != denominator):
-                if (numerator/denominator == int(str(numerator)[0]) / int(str(denominator)[1])
-                    and str(numerator)[1] == str(denominator)[0]
-                or
-                    numerator/denominator == int(str(numerator)[1]) / int(str(denominator)[0]) 
-                    and str(numerator)[0] == str(denominator)[1]):
-                    digit_cancelling_fractions.append([numerator, denominator])
+for top in range(11, 100):
+    if str(top)[1] != '0':
+        for bot in range(top, 100):
+            if (str(bot)[1] != '0' and top != bot):
+                if (
+                    (top/bot == int(str(top)[0]) / int(str(bot)[1])
+                     and str(top)[1] == str(bot)[0])
+                    or
+                    (top/bot == int(str(top)[1]) / int(str(bot)[0])
+                     and str(top)[0] == str(bot)[1])
+                     ):
 
-numerator_answer, denominator_answer = 1, 1
+                    digit_cancelling_fractions.append([top, bot])
+
+a, b = 1, 1
 for fraction in digit_cancelling_fractions:
-    numerator_answer *= fraction[0]
-    denominator_answer *= fraction[1]
+    a *= fraction[0]
+    b *= fraction[1]
 
-a, b = numerator_answer, denominator_answer
+d = b
 while b:
     a, b = b, a % b
-print(denominator_answer // a)
+print(d // a)

@@ -1,11 +1,8 @@
 # Distinct powers
 
-sequence = []
-
+sequence = set()
 for a in range(2, 101):
     for b in range(2, 101):
-        term = a ** b
-        if term not in sequence:
-            sequence.append(term)
+        sequence.add(a ** b)
 
 print(len(sequence))

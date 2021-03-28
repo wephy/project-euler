@@ -1,12 +1,8 @@
 # Multiples of 3 and 5
 
-def multiple_3_5(x):
-    total = 0
-    for m in range(x):
-        if m % 5 == 0 or m % 3 == 0:
-            total += m
-            print(m, total)
-    return total
+answer = 0
+for m in range(1_000):
+    if m % 5 == 0 or m % 3 == 0:
+        answer += m
 
-
-multiple_3_5(1000)
+print(answer)

@@ -1,34 +1,20 @@
 # Truncatable primes
 
-def is_prime(num):
-    if num > 1:
-        for fac in range(2, int(num ** 0.5 + 1)):
-            if (num % fac) == 0:
-                return False
-        return True
+from sympy import isprime
 
-
-truncatable_primes = []
-
-num = 11
+truncatable_primes = set()
+i = 11
 while len(truncatable_primes) < 11:
-    failed = False
-    num_string = str(num)
-
-    while not failed:
-        if is_prime(num):
-            for i in range(1, len(num_string)):
-                if not (is_prime(int(num_string[:-i]))) or not (
-                        is_prime(int(num_string[i:]))):
-                    failed = True
-        else:
-            failed = True
-            
+    if isprime(i):
+        left, right = str(i)[1:], str(i)[:-1]
+        failed = False
+        while left:
+            if not isprime(int(left)) or not isprime(int(right)):
+                failed = True
+                break
+            left, right = left[1:], right[:-1]
         if not failed:
-            truncatable_primes.append(num)
-        break
+            truncatable_primes.add(i)
+    i += 2
 
-    num += 2
-
-print(truncatable_primes)
 print(sum(truncatable_primes))

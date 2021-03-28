@@ -1,12 +1,11 @@
 # Large sum
 
-f = open(r"large sum.txt", "r")
+with open(r"p013.txt", "r") as f:
+    numbers = f.read().split('\n')
 
-numbers = f.read().split('\n')
-
-sum = 0
+answer = 0
 for number in numbers:
-    sum += int(number)
+    answer += int(number)
+answer = str(answer)
 
-sum = str(sum)
-print(sum[:10])
+print(answer[:10])

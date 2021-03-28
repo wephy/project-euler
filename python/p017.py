@@ -1,59 +1,43 @@
 # Number letter counts
 
-below10 = [
-           ['0', 0], ['1', 3], ['2', 3], ['3', 5], ['4', 4], 
-           ['5', 4], ['6', 3], ['7', 5], ['8', 5], ['9', 4]
-          ]
+def num2word(n):
+    below20 = {
+        1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six',
+        7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten', 11: 'eleven',
+        12: 'twelve', 13: 'thirteen', 14: 'fourteen', 15: 'fifteen',
+        16: 'sixteen', 17: 'seventeen', 18: 'eighteen', 19: 'nineteen'
+        }
+    above20 = {
+        2: 'twenty', 3: 'thirty', 4: 'forty', 5: 'fifty', 6: 'sixty',
+        7: 'seventy', 8: 'eighty', 9: 'ninety'
+        }
+    powers = {
+        1000: 'thousand', 100: 'hundred'
+        }
 
-teens = [
-         ['10', 3], ['11', 6], ['12', 6], ['13', 8], ['14', 8],
-         ['15', 7], ['16', 7], ['17', 9], ['18', 8], ['19', 8]
-        ]
+    word = ""
+    if n == 1000:
+        word += " ".join([below20[n // 1000], powers[1000]])
+        n = int(str(n)[-3:])
+    if n >= 100:
+        word += " ".join([below20[n // 100], powers[100]])
+        n = int(str(n)[-2:])
+        if n > 0:
+            word += " and "
+    if n >= 20:
+        word += " ".join([above20[n // 10]])
+        n = int(str(n)[-1:])
+        if n >= 1:
+            word += " " + below20[n]
+    elif n >= 1:
+        word += below20[n]
 
-above20 = [
-           ['2', len('twenty')], ['3', len('thirty')], ['4', len('forty')], 
-           ['5', len('fifty')], ['6', len('sixty')], ['7', len('seventy')], 
-           ['8', len('eighty')], ['9', len('ninety')]
-          ]
+    return word
 
-hundred_and = 10
-hundred = 7
 
-thousand = [['1000', len('onethousand')]]
+answer = 0
+for i in range(1, 1001):
+    word = num2word(i)
+    answer += len(word.replace(" ", ""))
 
-total = 0
-for i in range(1,1000+1):
-    i = str(i)
-
-    for n, l in thousand:
-        if i == n:
-            total += l
-
-    last2 = str(int(i[-2:]))
-    
-    if int(last2) < 20:
-        for n, l in below10:
-            if last2 == n:
-                total += l
-        for n, l in teens:
-            if last2 == n:
-                total += l
-    else:
-        for n, l in above20:
-            if last2[:1] == n:
-                total += l
-        for n, l in below10:
-            if last2[-1:] == n:
-                total += l
-    
-    if len(i) == 3:
-        third = i[-3:-2]
-        for n, l in below10:
-            if third == n:
-                total += l
-                if int(i[-2:]) == 0:
-                    total += hundred
-                else:
-                    total += hundred_and
-
-print(total)
+print(answer)

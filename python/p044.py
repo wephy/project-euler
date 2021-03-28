@@ -12,12 +12,11 @@ def find_d(j=0):
     x = pentagon(j)
     for k in range(j-1, 0, -1):
         y = pentagon(k)
-        if pentagon_check(x-y):
-            if pentagon_check(x+y):
-                print(x-y)
-                return True
+        if pentagon_check(x - y):
+            if pentagon_check(x + y):
+                print(x - y)
+                return
     find_d(j+1)
-    return False
 
 
 find_d()

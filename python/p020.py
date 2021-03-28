@@ -2,8 +2,8 @@
 
 from math import factorial
 
-x = 0
+answer = 0
 for digit in str(factorial(100)):
-    x += int(digit)
+    answer += int(digit)
 
-print(x)
+print(answer)

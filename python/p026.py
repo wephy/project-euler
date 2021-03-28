@@ -22,13 +22,11 @@ class Dividing:
         return self.cycle_length
 
 
-longest_d = 0
-longest = 0
+longest = {'number': 0, 'length': 0}
 for n in range(2, 1000):
-    recurring = Dividing(n)
-    length = recurring.cycle
-    if length > longest:
-        longest = length
-        longest_d = n
+    length = Dividing(n).cycle
+    if length > longest['length']:
+        longest['length'] = length
+        longest['number'] = n
 
-print(longest_d)
+print(longest['number'])

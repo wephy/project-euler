@@ -1,24 +1,24 @@
 # Longest Collatz sequence
 
-def collatz_count(n):
+counts = {}
+
+
+def collatz(n):
+    i = n
     counter = 1
-    while n > 1:
-        if n % 2 == 0:
-            n = n/2
+    while i > 1:
+        if i in counts:
+            return counter + counts[i]
+        if i % 2 == 0:
+            i = i // 2
             counter += 1
         else:
-            n = 1.5*n + 0.5
+            i = int(1.5 * i + 0.5)
             counter += 2
     return counter
 
 
-upper = 1000000
-maxC = 0
-maxN = 0
+for i in range(1, 1_000_000):
+    counts[i] = collatz(i)
 
-for i in range(int(upper/2), upper):
-    if collatz_count(i) > maxC:
-        maxC = collatz_count(i)
-        maxN = i
-
-print(maxN, maxC)
+print(max(counts, key=lambda k: counts[k]))

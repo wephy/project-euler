@@ -1,24 +1,13 @@
 # Integer right triangles
 
-def get_solutions(p):
-    solutions = []
-    limit = int(p // (2 + (2 ** 0.5)))
-    for i in range(1, limit):
-        for n in range(i, limit*2+1):
-            a = i
-            b = n - i
-            c = p - n
-            # print(a, b ,c)
-            if a ** 2 + b ** 2 == c ** 2:
-                solutions.append((a, b, c))
-    return solutions
+from sympy import divisors
 
+perimeters = []
+for r in range(2, 1000 // 3, 2):
+    div_list = divisors(r ** 2 // 2)
+    for i in range((len(div_list) + 1) // 2):
+        p = 3 * r + 2 * (div_list[i] + div_list[-i-1])
+        if p <= 1000:
+            perimeters.append(p)
 
-max_solutions = 0
-max_solution_p = 0
-for p in range(1, 1001):
-    solutions = get_solutions(p)
-    if len(solutions) > max_solutions:
-        max_solutions = len(solutions)
-        max_solution_p = p
-print(max_solution_p)
+print(max(perimeters, key=perimeters.count))

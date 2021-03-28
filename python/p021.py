@@ -1,26 +1,13 @@
 # Amicable numbers
 
-def d(n):
-    divList = []
-    for i in range(1, n // 2 + 1):
-        if n % i == 0:
-            divList.append(i)
-    divSum = 0
-    for divisor in divList:
-        divSum += divisor
-    return divSum
+from sympy import divisors
 
+answer = 0
 
-amicSum = 0
+for i in range(10_000):
+    divisor_sum = sum(divisors(i)[:-1])
+    if divisor_sum != i:
+        if sum(divisors(divisor_sum)[:-1]) == i:
+            answer += i
 
-for a in range(1, 10000):
-    dA = d(a)
-    for b in range(a+2, 3*a, 2):
-        if a == b or dA != b or b >= 10000:
-            continue
-        dB = d(b)
-
-        if dB == a:
-            amicSum += a + b
-
-print(amicSum)
+print(answer)
