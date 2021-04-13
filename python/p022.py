@@ -2,7 +2,7 @@
 
 from string import ascii_uppercase
 
-with open("p022.txt", "r") as data:
+with open("../data/p022.txt") as data:
     names = eval("[" + data.readline() + "]")
 
 answer = 0
