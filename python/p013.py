@@ -1,6 +1,6 @@
 # Large sum
 
-with open(r"p013.txt", "r") as f:
+with open("../data/p013.txt") as f:
     numbers = f.read().split('\n')
 
 answer = 0

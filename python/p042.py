@@ -11,7 +11,7 @@ def triangle_gen():
 triangle_numbers = []
 triangle_gen()
 
-with open("p042.txt") as data:
+with open("../data/p042.txt") as data:
     words_data = data.readlines()
 words = eval(words_data[0])
 
