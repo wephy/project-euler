@@ -1,40 +1,41 @@
-# Cyclical figurate numbers
+# # Cyclical figurate numbers
 
-def triangular(n): return ((8 * n + 1) ** 0.5 - 1) / 2
-def square(n): return n ** 0.5
-def pentagonal(n): return ((24 * n + 1) ** 0.5 + 1) / 6
-def hexagonal(n): return ((8  *n + 1) ** 0.5 + 1) / 4
-def heptagonal(n): return ((40 * n + 9) ** 0.5 + 3) / 10
-def octagonal(n): return ((3 * n + 1) ** 0.5 + 1) / 3
+def populate_set(sets, set_order, formula):
+    def f(x): return int(eval(formula.replace("n", f"{x}")))
+    numbers = set()
+    i = 0
+    while f(i) < 10_000:
+        if len(str(f(i))) == 4:
+            numbers.add(f(i))
+        i += 1
+    sets[set_order] = numbers
 
 
-for tri in [int(n * (n + 1) / 2) for n in range(
-    int(triangular(1_000)), int(triangular(10_000)))]:
-
-    for sqr in [int(n ** 2) for n in range(
-    int(square(1_000)), int(square(10_000)))]:
-        if str(sqr)[0:2] != str(tri)[2:4]:
+def solve(sets, answer=[], types={x: False for x in [0, 1, 2, 3, 4, 5]}):
+    if len(answer) > 0:
+        first_two = str(answer[-1])[2:4]
+    for i, s in sets.items():
+        if types[i] == True:
             continue
+        for x in s:
+            if (len(answer) == 5 and str(x)[0:2] == first_two
+                and str(x)[2:4] == str(answer[0])[0:2]):
+                return sum(answer + [x])
+            if len(answer) == 0 or str(x)[0:2] == first_two:
+                new_types = types.copy()
+                new_types[i] = True
+                solution = solve(sets, answer + [x], new_types)
+                if solution:
+                    return solution
 
-        for pen in [int(n * (3 * n - 1) / 2) for n in range(
-        int(pentagonal(1_000)), int(pentagonal(10_000)))]:
-            if str(pen)[0:2] != str(sqr)[2:4]:
-                continue
-                    
-            for hex in [int(n * (3 * n - 1) / 2) for n in range(
-            int(hexagonal(1_000)), int(hexagonal(10_000)))]:
-                if str(hex)[0:2] != str(pen)[2:4]:
-                    continue
 
-                for hep in [int(n * (5 * n - 3) / 2) for n in range(
-                int(heptagonal(1_000)), int(heptagonal(10_000)))]:
-                    if str(hep)[0:2] != str(hex)[2:4]:
-                        continue
-                            
-                    for oct in [int(n * (3 * n - 2)) for n in range(
-                    int(octagonal(1_000)), int(octagonal(10_000)))]:
-                        if (str(oct)[0:2] != str(hep)[2:4]
-                            or str(oct)[2:4] != str(tri)[0:2]):
-                            continue
-                        
-                        print(sum([tri, sqr, pen, hex, hep, oct]))
+sets = {}
+
+populate_set(sets, 0, "n * (n + 1) / 2")
+populate_set(sets, 1, "n ** 2")
+populate_set(sets, 2, "n * (3 * n - 1) / 2")
+populate_set(sets, 3, "n * (2 * n - 1)")
+populate_set(sets, 4, "n * (5 * n - 3) / 2")
+populate_set(sets, 5, "n * (3 * n - 2)")
+
+print(solve(sets))
