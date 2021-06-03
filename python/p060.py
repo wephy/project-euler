@@ -4,10 +4,10 @@ import networkx as nx
 from networkx.algorithms.clique import find_cliques
 from sympy import isprime, nextprime
 
-primes = set()
-n = 2
 G = nx.Graph()
 
+primes = set()
+n = 2
 while max([0] + [len(i) for i in find_cliques(G)]) < 5:
     n = nextprime(n)
     G.add_node(n)
