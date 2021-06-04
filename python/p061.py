@@ -1,4 +1,4 @@
-# # Cyclical figurate numbers
+# Cyclical figurate numbers
 
 def populate_set(sets, set_order, formula):
     def f(x): return int(eval(formula.replace("n", f"{x}")))
