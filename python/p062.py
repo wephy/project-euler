@@ -1,7 +1,7 @@
 # Cubic permutations
 
-perms = {0: 0}
 i = hash = 0
+perms = {i: hash}
 while perms[hash] != 5:
     hash = tuple(sorted([*str(i ** 3)]))
     if hash not in perms:
