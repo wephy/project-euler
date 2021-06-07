@@ -10,15 +10,15 @@ def period(S):
         return 0
 
     a0 = np.floor(np.sqrt(S))
-    an = a0
-    mn = 0
-    dn = 1
+    a = a0
+    m = 0
+    d = 1
 
     x = 0
-    while an != 2 * a0:
-        mn = (dn * an) - mn
-        dn = (S - (mn ** 2)) / dn
-        an = np.floor((a0 + mn) / dn)
+    while a != 2 * a0:
+        m = (d * a) - m
+        d = (S - (m ** 2)) / d
+        a = np.floor((a0 + m) / d)
         x += 1
 
     return x
