@@ -5,11 +5,11 @@ from numba import vectorize
 
 
 @vectorize
-def period(S):
-    if np.sqrt(S) % 1 == 0:
+def period(s):
+    if np.sqrt(s) % 1 == 0:
         return 0
 
-    a0 = np.floor(np.sqrt(S))
+    a0 = np.floor(np.sqrt(s))
     a = a0
     m = 0
     d = 1
@@ -17,7 +17,7 @@ def period(S):
     x = 0
     while a != 2 * a0:
         m = (d * a) - m
-        d = (S - (m ** 2)) / d
+        d = (s - (m ** 2)) / d
         a = np.floor((a0 + m) / d)
         x += 1
 
