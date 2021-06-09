@@ -15,11 +15,11 @@ def solve(sets, answer=[], types={x: False for x in [0, 1, 2, 3, 4, 5]}):
     if len(answer) > 0:
         first_two = str(answer[-1])[2:4]
     for i, s in sets.items():
-        if types[i] == True:
+        if types[i] is True:
             continue
         for x in s:
             if (len(answer) == 5 and str(x)[0:2] == first_two
-                and str(x)[2:4] == str(answer[0])[0:2]):
+               and str(x)[2:4] == str(answer[0])[0:2]):
                 return sum(answer + [x])
             if len(answer) == 0 or str(x)[0:2] == first_two:
                 new_types = types.copy()
