@@ -1,9 +1,10 @@
 # Names scores
 
+import os
 from string import ascii_uppercase
 
-with open("p022.txt", "r") as data:
-    names = eval("[" + data.readline() + "]")
+with open(os.path.join("..", "data", "p022.txt"), encoding="utf-8") as f:
+    names = eval("[" + f.readline() + "]")
 
 answer = 0
 for index, name in enumerate(sorted(names)):

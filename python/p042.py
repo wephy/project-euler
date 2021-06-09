@@ -1,5 +1,6 @@
 # Coded triangle numbers
 
+import os
 from string import ascii_lowercase
 
 
@@ -11,8 +12,8 @@ def triangle_gen():
 triangle_numbers = []
 triangle_gen()
 
-with open("p042.txt") as data:
-    words_data = data.readlines()
+with open(os.path.join("..", "data", "p042.txt"), encoding="utf-8") as f:
+    words_data = f.readlines()
 words = eval(words_data[0])
 
 answer = 0

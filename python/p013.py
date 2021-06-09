@@ -1,6 +1,8 @@
 # Large sum
 
-with open(r"p013.txt", "r") as f:
+import os
+
+with open(os.path.join("..", "data", "p013.txt"), encoding="utf-8") as f:
     numbers = f.read().split('\n')
 
 answer = 0
