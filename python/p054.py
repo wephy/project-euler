@@ -2,8 +2,7 @@
 
 import os
 
-player1 = []
-player2 = []
+player1 = player2 = []
 
 with open(os.path.join("..", "data", "p054.txt"), encoding="utf-8") as f:
     for line in f:
@@ -16,6 +15,7 @@ RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
 
 
 def score(hand):
+
     # Test for royal flush
     failed = False
     if len(set(card[1] for card in hand)) == 1:
