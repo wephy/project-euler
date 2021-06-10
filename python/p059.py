@@ -1,8 +1,9 @@
 # XOR decryption
 
+import os
 from collections import Counter
 
-with open("../data/p059.txt") as f:
+with open(os.path.join("..", "data", "p059.txt"), encoding="utf-8") as f:
     text = f.readline().split(",")
 
 answer = 0
