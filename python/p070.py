@@ -1,20 +1,14 @@
 # Totient permutation
 
-from sympy import isprime
+import numpy as np
+from sympy import sieve
+from itertools import combinations
 
-def test(n):
-    m = n / 11
-    if m.is_integer():
-        m = int(m - 1) * 10
-        if sorted(str(m)) == sorted(str(n)):
-            return True
-    return False
+N = 10 ** 7
 
+primes = sieve.primerange(N ** 0.5 - 1000, N ** 0.5 + 1000)
 
-x = 10 ** 7
-while not test(x):
-    x -= 1
+nums = [(a, b) for a, b in combinations(primes, 2) if a * b < N
+        and sorted(str(a * b)) == sorted(str((a - 1) * (b - 1)))]
 
-print(x)
-
-test(9899890)
+print(np.prod(min(nums, key=lambda x: np.prod(x) / np.prod(np.array(x) - 1))))
