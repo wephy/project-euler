@@ -1,22 +1,17 @@
-# Coin sums
+# Counting summations
 
-from sympy import sieve
+generalized = [1]
+n = 1
+while generalized[-1] < 100:
+    generalized.append(n * (3 * n - 1) // 2)
+    generalized.append((-n) * (3 * (-n) - 1) // 2)
+    n += 1
 
-primes = list(sieve.primerange(1, 1_000_000))[::-1]
+partitions = {0: 1}
+for n in range(1, 100 + 1):
+    count = 0
+    for i, p in enumerate([p for p in generalized[1:] if p <= n]):
+        count += (-1) ** ((i // 2) % 2) * partitions[n - p]
+    partitions[n] = count
 
-
-def solve(target, integers):
-    count = (target % integers[0] == 0)
-
-    while len(integers) > 1 and target > 0:
-        count += solve(target, integers[1:])
-        target -= integers[0]
-
-    return count
-
-
-answer = 10
-while solve(answer, [p for p in primes if p < answer]) < 5000:
-    answer += 1
-
-print(answer)
+print(partitions[100] - 1)
