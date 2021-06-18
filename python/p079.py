@@ -3,7 +3,6 @@
 import os
 from itertools import chain
 
-
 with open(os.path.join("..", "data", "p079.txt"), encoding="utf-8") as f:
     data = f.read().splitlines()
 
