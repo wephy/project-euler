@@ -5,7 +5,7 @@ import numpy as np
 
 size = 80
 matrix = np.loadtxt(os.path.join("..", "data", "p082.txt"),
-    usecols=range(size), delimiter=",", dtype=int)
+                    usecols=range(size), delimiter=",", dtype=int)
 
 for x in range(1, size):
     column = matrix[:, x] + matrix[:, x-1]
