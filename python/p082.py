@@ -3,16 +3,15 @@
 import os
 import numpy as np
 
-size = 80
 matrix = np.loadtxt(os.path.join("..", "data", "p082.txt"),
-                    usecols=range(size), delimiter=",", dtype=int)
+                    delimiter=",", dtype=np.uint32)
 
+size = matrix.shape[0]
 for x in range(1, size):
     column = matrix[:, x] + matrix[:, x-1]
-    for y in range(1, size):
-        column[y] = min(column[y], column[y-1] + matrix[y, x])
-    for y in range(size - 2, -1, -1):
-        column[y] = min(column[y], matrix[y, x] + column[y+1])
+    for y1, y2 in zip(range(1, size), reversed(range(0, size-1))):
+        column[y1] = min(column[y1], matrix[y1, x] + column[y1-1])
+        column[y2] = min(column[y2], matrix[y2, x] + column[y2+1])
     matrix[:, x] = column
 
 print(min(matrix[:, -1]))
