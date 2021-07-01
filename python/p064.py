@@ -26,4 +26,4 @@ def period(s):
 
 numbers = np.arange(1, 10_000 + 1)
 periods = period(numbers)
-print(len(periods[periods % 2 == 1]))
+print(np.count_nonzero(periods % 2 == 1))
