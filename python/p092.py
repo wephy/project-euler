@@ -18,7 +18,7 @@ for i in range(568):
 
 F = [1, 1, 2, 6, 24, 120, 720, 5_040, 40_320, 362_880]
 answer = 0
-for combo in combinations_with_replacement([i for i in range(10)], 7):
+for combo in combinations_with_replacement([*range(10)], 7):
     if cache[sum(d**2 for d in combo)]:
         answer += F[7] // np.product([F[v] for v in Counter(combo).values()])
 
