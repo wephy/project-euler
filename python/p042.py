@@ -1,29 +1,16 @@
 # Coded triangle numbers
 
 import os
-from string import ascii_lowercase
+import numpy as np
+from string import ascii_uppercase
 
-
-def triangle_gen():
-    n = len(triangle_numbers) + 1
-    triangle_numbers.append(0.5 * n * (n + 1))
-
-
-triangle_numbers = []
-triangle_gen()
-
-with open(os.path.join("..", "data", "p042.txt"), encoding="utf-8") as f:
-    words_data = f.readlines()
-words = eval(words_data[0])
+data = np.char.strip(np.loadtxt(os.path.join("..", "data", "p042.txt"),
+    delimiter=",", dtype=str), '"')
 
 answer = 0
-for word in words:
-    word_value = 0
-    for char in word.lower():
-        word_value += ascii_lowercase.index(char) + 1
-    while word_value > triangle_numbers[-1]:
-        triangle_gen()
-    if word_value in triangle_numbers:
+for word in data:
+    word_sum = sum(ascii_uppercase.index(char) + 1 for char in word)
+    if (8 * word_sum + 1) ** 0.5 % 1 == 0:
         answer += 1
 
 print(answer)

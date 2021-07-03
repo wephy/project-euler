@@ -1,14 +1,13 @@
 # Poker hands
 
 import os
+import numpy as np
 
-player1 = player2 = []
+data = np.loadtxt(os.path.join("..", "data", "p054.txt"),
+                  delimiter=" ", dtype=str)
 
-with open(os.path.join("..", "data", "p054.txt"), encoding="utf-8") as f:
-    for line in f:
-        cards = line.split()
-        player1.append(cards[:5])
-        player2.append(cards[5:])
+player1 = data[:, :5]
+player2 = data[:, 5:]
 
 ROYAL_FLUSH = ['T', 'J', 'Q', 'K', 'A']
 RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
@@ -205,8 +204,9 @@ def score(hand):
     return float(f"0.{val}{val2}{val3}{val4}{val5}")
 
 
-wins = 0
+answer = 0
 for game in range(1_000):
     if score(player1[game]) > score(player2[game]):
-        wins += 1
-print(wins)
+        answer += 1
+
+print(answer)

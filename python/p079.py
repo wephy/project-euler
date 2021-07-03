@@ -1,10 +1,10 @@
 # Passcode derivation
 
 import os
+import numpy as np
 from itertools import chain
 
-with open(os.path.join("..", "data", "p079.txt"), encoding="utf-8") as f:
-    data = f.read().splitlines()
+data = np.loadtxt(os.path.join("..", "data", "p079.txt"), dtype=str)
 
 d = {i: set() for i in set(chain.from_iterable(data))}
 

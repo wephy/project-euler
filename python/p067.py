@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 with open(os.path.join("..", "data", "p067.txt"), encoding="utf-8") as f:
-    data = [list(map(int, row.split())) for row in f.read().splitlines()]
+    data = [list(map(int, row.split())) for row in f]
 
 answer = data[-1]
 for row in data[-2::-1]:

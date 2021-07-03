@@ -1,13 +1,14 @@
 # Names scores
 
 import os
+import numpy as np
 from string import ascii_uppercase
 
-with open(os.path.join("..", "data", "p022.txt"), encoding="utf-8") as f:
-    names = eval("[" + f.readline() + "]")
+data = np.char.strip(np.loadtxt(os.path.join("..", "data", "p022.txt"),
+    delimiter=",", dtype=str), '"')
 
 answer = 0
-for index, name in enumerate(sorted(names)):
+for index, name in enumerate(sorted(data)):
     value = 0
     for char in name:
         value += ascii_uppercase.index(char) + 1

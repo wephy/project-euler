@@ -1,12 +1,8 @@
 # Smallest multiple
 
-from sympy import isprime
+import numpy as np
 from math import log, floor
 
-TEST = 20
-answer = 1
-for i in range(1, TEST + 1):
-    if isprime(i):
-        answer *= i ** floor(log(TEST, i))
+primes = [2, 3, 5, 7, 11, 13, 17, 19]
 
-print(answer)
+print(np.product([n ** floor(log(20, n)) for n in primes]))
