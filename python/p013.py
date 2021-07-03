@@ -1,13 +1,8 @@
 # Large sum
 
 import os
+import numpy as np
 
-with open(os.path.join("..", "data", "p013.txt"), encoding="utf-8") as f:
-    numbers = f.read().split('\n')
+matrix = np.loadtxt(os.path.join("..", "data", "p013.txt"), dtype=object)
 
-answer = 0
-for number in numbers:
-    answer += int(number)
-answer = str(answer)
-
-print(answer[:10])
+print(str(sum(int(n) for n in matrix))[:10])
