@@ -1,10 +1,11 @@
 # XOR decryption
 
 import os
+import numpy as np
 from collections import Counter
 
-with open(os.path.join("..", "data", "p059.txt"), encoding="utf-8") as f:
-    text = f.readline().split(",")
+text = np.loadtxt(os.path.join("..", "data", "p059.txt"),
+                  delimiter=",", dtype=np.uint8)
 
 answer = 0
 for i in range(3):
