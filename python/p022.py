@@ -5,7 +5,7 @@ import numpy as np
 from string import ascii_uppercase
 
 data = np.char.strip(np.loadtxt(os.path.join("..", "data", "p022.txt"),
-    delimiter=",", dtype=str), '"')
+                                delimiter=",", dtype=str), '"')
 
 answer = 0
 for index, name in enumerate(sorted(data)):
