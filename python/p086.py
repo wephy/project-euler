@@ -16,7 +16,7 @@ def solve(limit):
                 target = squares.index(left) + 1
                 solutions += max(min(target-1, m+1) - np.ceil(target/2) + 1, 0)
         m += 1
-    return (m, solutions)
+    return m
 
 
 print(solve(1000000))
