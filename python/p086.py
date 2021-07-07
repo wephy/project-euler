@@ -19,4 +19,4 @@ def solve(limit):
     return m
 
 
-print(solve(1_000_000))
+print(solve(1000000))
