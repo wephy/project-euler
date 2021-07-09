@@ -8,19 +8,15 @@ data = set(np.char.strip(np.loadtxt(os.path.join("..", "data", "p098.txt"),
 
 sorted_words = {word: sorted(word) for word in data}
 
-
-longest = 0
 anagrams = []
 for word1 in data.copy():
-    for word2 in data:
-        if (sorted_words[word1] == sorted_words[word2]
-           and word2 not in [word1, word1[::-1]]):
-            anagrams.append((word1, word2))
-            if len(word1) > longest:
-                longest = len(word1)
     data.remove(word1)
+    for word2 in data:
+        if sorted_words[word1] == sorted_words[word2] and word2 != word1[::-1]:
+            anagrams.append((word1, word2))
 
-squares = set([i**2 for i in range(1, int(10**6**0.5))])
+squares = set([i**2 for i in range(
+    int(10**(max(len(x[0]) for x in anagrams) + 1)**0.5))])
 squares_placements = {square: sorted(
         {x: tuple(i for i, c in enumerate(str(square)) if c == x)
          for x in set(str(square))}.values()) for square in squares}
@@ -35,12 +31,10 @@ for word1, word2 in anagrams:
             substitutions = {k: str(square)[word_placements[k][0]]
                              for k in word_placements.keys()}
 
-            new = ""
-            for letter in word2:
-                new += substitutions[letter]
-
+            new = "".join([substitutions[x] for x in word2])
             if new[0] == "0":
                 continue
+
             elif int(new) in squares:
                 solutions.append(square)
                 solutions.append(int(new))
