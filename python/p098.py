@@ -14,18 +14,18 @@ anagrams = np.array([(x, y) for lengths in words.values() for (x, y) in
                     and x != y[::-1]])
 
 squares = set([i**2 for i in range(int(
-            10**len(max(anagrams[:, 0], key=len))**0.5))])
+               10**len(max(anagrams[:, 0], key=len))**0.5))])
 s_hashes = {sq: hash(tuple(sorted(tuple(i for i, c in enumerate(str(sq))
             if c == y) for y in set(str(sq))))) for sq in squares}
 
 solutions = []
-for w, pair in anagrams:
-    struct = {x: tuple(i for i, c in enumerate(w) if c == x) for x in set(w)}
-    h = hash(tuple(sorted(struct.values())))
+for x, y in anagrams:
+    struct = {n: tuple(i for i, ch in enumerate(x) if ch == n) for n in set(x)}
+    struct_hash = hash(tuple(sorted(struct.values())))
     for sq in squares:
-        if h == s_hashes[sq]:
-            substitutions = {x: str(sq)[struct[x][0]] for x in struct.keys()}
-            number = "".join([substitutions[x] for x in pair])
+        if struct_hash == s_hashes[sq]:
+            substitutions = {n: str(sq)[struct[n][0]] for n in struct.keys()}
+            number = "".join([substitutions[n] for n in y])
             if number[0] != "0" and int(number) in squares:
                 solutions += [sq, int(number)]
 
