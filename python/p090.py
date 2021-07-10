@@ -30,7 +30,7 @@ for cube1 in combinations([str(i) for i in range(1, 10)], 5):
     for cube2 in combinations(list(not_missing), 6-len(missing)):
         if no6or9 and ("6" not in cube2 and "9" not in cube2):
             continue
-        cube2 = tuple(missing) + cube2
+        cube2 += tuple(missing)
         if tuple(sorted(cube2)) in tested:
             continue
         if test(list(cube1), list(cube2)):
