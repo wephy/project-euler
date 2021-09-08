@@ -2,8 +2,12 @@
 
 from math import factorial
 
-answer = 0
-for digit in str(factorial(100)):
-    answer += int(digit)
+NUMBER = 100
 
-print(answer)
+
+def solve():
+    return sum(int(digit) for digit in str(factorial(NUMBER)))
+
+
+if __name__ == "__main__":
+    print(solve())

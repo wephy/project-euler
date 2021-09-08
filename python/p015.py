@@ -2,4 +2,12 @@
 
 from math import factorial
 
-print(int(factorial(2*20) / (factorial(20) * factorial(40 - 20))))
+SIZE = 20
+
+
+def solve():
+    return factorial(2 * SIZE) // (factorial(SIZE)**2)
+
+
+if __name__ == "__main__":
+    print(solve())

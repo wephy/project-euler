@@ -1,10 +1,16 @@
 # Coin sums
 
-def solve(target, coins, start=0, index=0, count=0):
-    if index < 7:
-        for i in range(start, target+1, coins[index]):
-            count = solve(target, coins, i, index+1, count)
-    return count + (index >= 7)
+TARGET = 200
+COINS = [200, 100, 50, 20, 10, 5, 2, 1]
 
 
-print(solve(200, [200, 100, 50, 20, 10, 5, 2, 1]))
+def solve():
+    ways = [1] + ([0] * TARGET)
+    for coin in COINS:
+        for i in range(coin, TARGET + 1):
+            ways[i] += ways[i - coin]
+    return int(ways[-1])
+
+
+if __name__ == "__main__":
+    print(solve())

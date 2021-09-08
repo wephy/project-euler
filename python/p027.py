@@ -1,23 +1,33 @@
 # Quadratic primes
 
-from sympy import isprime
+from math import prod
+from sympy import sieve, isprime
+from itertools import count
+
+LIMIT = 1000
 
 
-def quadratic_primes(a, b):
-    n = 0
-    while True:
-        if not isprime(n ** 2 + a * n + b):
-            return n
+def solve():
+    primes = set(sieve.primerange(LIMIT))
+    tests = set()
+    for b in primes.copy():
+        for a in range(-b, LIMIT, 2):
+            tests.add((a, b))
+
+    composites = set()
+    return prod(
+        max(tests, key=lambda x: consecutive_primes(*x, primes, composites)))
+
+
+def consecutive_primes(a, b, primes, composites):
+    for i in count():
+        x = (i * i) + (i * a) + b
+        if x in composites or x not in primes and not isprime(x):
+            composites.add(x)
+            return i
         else:
-            n += 1
+            primes.add(x)
 
 
-answer = {'n': 0, 'v': 0}
-for a in range(-999, 1000):
-    for b in range(-1000, 1001):
-        p = quadratic_primes(a, b)
-        if p > answer['v']:
-            answer['v'] = p
-            answer['n'] = a * b
-
-print(answer['n'])
+if __name__ == "__main__":
+    print(solve())

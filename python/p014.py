@@ -1,24 +1,26 @@
 # Longest Collatz sequence
 
-counts = {}
+LIMIT = 1_000_000
 
 
-def collatz(n):
-    i = n
-    counter = 1
-    while i > 1:
-        if i in counts:
-            return counter + counts[i]
-        if i % 2 == 0:
-            i = i // 2
-            counter += 1
-        else:
-            i = int(1.5 * i + 0.5)
-            counter += 2
-    return counter
+def solve():
+    chains = {}
+    return max(range(LIMIT, 0, -1), key=lambda x: collatz(x, chains))
 
 
-for i in range(1, 1_000_000):
-    counts[i] = collatz(i)
+def collatz(n, chains):
+    if n in chains.keys():
+        return chains[n]
+    elif n == 1:
+        return 1
 
-print(max(counts, key=lambda k: counts[k]))
+    if n % 2 == 0:
+        length = collatz(n // 2, chains) + 1
+    else:
+        length = collatz(3 * n + 1, chains) + 1
+    chains[n] = length
+    return length
+
+
+if __name__ == "__main__":
+    print(solve())

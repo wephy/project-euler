@@ -3,11 +3,17 @@
 import numpy as np
 from numba import vectorize
 
-
-@vectorize
-def count(denominator):
-    numerators = np.arange(denominator // 3 + 1, denominator // 2 + 1)
-    return np.count_nonzero(np.gcd(numerators, denominator) == 1)
+LIMIT = 12_000
 
 
-print(sum(count(np.arange(4, 12_000 + 1))))
+def solve():
+    @vectorize
+    def count(denominator):
+        numerators = np.arange((denominator // 3) + 1, (denominator // 2) + 1)
+        return np.count_nonzero(np.gcd(numerators, denominator) == 1)
+
+    return sum(count(np.arange(4, LIMIT + 1)))
+
+
+if __name__ == "__main__":
+    print(solve())

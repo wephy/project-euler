@@ -1,24 +1,24 @@
 # Consecutive prime sum
 
+import numpy as np
 from sympy import sieve
+from itertools import count
 
-primes = list(sieve.primerange(2, 1_000_000))
-primes_set = set(primes)
-counter = prime_sum = 0
-while prime_sum < 1_000_000:
-    prime_sum += primes[counter]
-    counter += 1
+LIMIT = 1_000_000
 
 
-def solution(window=counter):
-    while True:
-        for i in range(len(primes) - window):
-            p = sum(primes[i:i+window])
-            if p >= 1_000_000:
+def solve():
+    primes_list = list(sieve.primerange(2, LIMIT))
+    primes_set = set(primes_list)
+    max_length = np.where(np.cumsum(primes_list) > LIMIT)[0][0]
+    for window in count(max_length, -1):
+        for i in range(len(primes_list) - window):
+            p = sum(primes_list[i:i + window])
+            if p >= LIMIT:
                 break
-            if p in primes_set:
+            elif p in primes_set:
                 return p
-        window -= 1
 
 
-print(solution())
+if __name__ == "__main__":
+    print(solve())

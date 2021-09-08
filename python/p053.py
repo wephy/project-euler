@@ -1,18 +1,15 @@
 # Combinatoric selections
 
-from math import factorial
+from sympy import binomial
+
+LIMIT = 100
 
 
-def nCr(n, r):
-    numerator = factorial(n)
-    denominator = factorial(r) * factorial(n - r)
-    return numerator / denominator
+def solve():
+    return sum(
+        int(binomial(n, r)) > 1_000_000 for n in range(1, LIMIT + 1)
+        for r in range(1, n))
 
 
-answer = 0
-for n in range(101):
-    for r in range(n):
-        if nCr(n, r) > 1_000_000:
-            answer += 1
-
-print(answer)
+if __name__ == "__main__":
+    print(solve())

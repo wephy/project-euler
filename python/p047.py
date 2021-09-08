@@ -1,12 +1,16 @@
 # Distinct primes factors
 
 from sympy import primefactors
+from itertools import count
 
-n, i = 0, 0
-while i < 4:
-    if len(primefactors(n)) == 4:
-        i += 1
-    else:
-        i = 0
-    n += 1
-print(n-3)
+
+def solve():
+    distincts = {}
+    for i in count(3):
+        distincts[i] = len(primefactors(i))
+        if set(map(distincts.get, range(i - 3, i + 1))) == {4}:
+            return i - 4
+
+
+if __name__ == "__main__":
+    print(solve())

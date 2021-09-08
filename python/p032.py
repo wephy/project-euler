@@ -1,22 +1,12 @@
 # Pandigital products
 
-from sympy import divisors
+
+def solve():
+    return sum(
+        set(c for a in range(1, 100) for b in range(100, 10_000 // a)
+            if "".join(sorted(str(a) + str(b) +
+                              str(c := a * b))) == "123456789"))
 
 
-def pandigital_product(n):
-    pairs = []
-    divisors_list = divisors(n)[1:-1]
-    for i in range((len(divisors_list) + 1) // 2):
-        pairs.append([divisors_list[i], divisors_list[-i-1]])
-    for pair in pairs:
-        digits = "".join(map(str, [n, pair[0], pair[1]]))
-        if ''.join(sorted(digits)) == "123456789":
-            return True
-
-
-answer = 0
-for i in range(1_000, 10_000):
-    if pandigital_product(i):
-        answer += i
-
-print(answer)
+if __name__ == "__main__":
+    print(solve())

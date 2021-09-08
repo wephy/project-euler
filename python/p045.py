@@ -1,15 +1,14 @@
 # Triangular, pentagonal, and hexagonal
 
-def is_pentagon(n):
-    return ((24 * n + 1) ** 0.5 + 1) % 6 == 0
+from itertools import count
 
 
-def hexagon(n):
-    return (n * (2 * n - 1))
+def solve():
+    for i in count(144):
+        hexagon = (i * (2 * i - 1))
+        if ((24 * hexagon + 1)**0.5 + 1) % 6 == 0:
+            return hexagon
 
 
-x = 144
-while not is_pentagon(hexagon(x)):
-    x += 1
-
-print(hexagon(x))
+if __name__ == "__main__":
+    print(solve())

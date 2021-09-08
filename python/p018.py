@@ -1,49 +1,18 @@
 # Maximum path sum I
 
-raw = [
-    ['75'],
-    ['95 64'],
-    ['17 47 82'],
-    ['18 35 87 10'],
-    ['20 04 82 47 65'],
-    ['19 01 23 75 03 34'],
-    ['88 02 77 73 07 63 67'],
-    ['99 65 04 28 06 16 70 92'],
-    ['41 41 26 56 83 40 80 70 33'],
-    ['41 48 72 33 47 32 37 16 94 29'],
-    ['53 71 44 65 25 43 91 52 97 51 14'],
-    ['70 11 33 28 77 73 17 78 39 68 17 57'],
-    ['91 71 52 38 17 14 91 43 58 50 27 29 48'],
-    ['63 66 04 68 89 53 67 30 73 16 69 87 40 31'],
-    ['04 62 98 27 23 09 70 98 73 93 38 53 60 04 23']
-    ]
-
-triangle_array = []
-for row in raw:
-    integers = row[0].split(' ')
-    triangle_array.append([int(i) for i in integers])
+import os
+import numpy as np
 
 
-class Triangle:
-    def __init__(self, array):
-        self.array = array
-        self.longest = self.get_longest()
+def solve():
+    with open(os.path.join("..", "data", "p018.txt"), encoding="utf-8") as f:
+        data = [list(map(int, row.split())) for row in f]
 
-    def descend(self, array, x=0, y=0, total=0, longest=0):
-        try:
-            value = total + array[y][x]
-            if value >= longest:
-                self.longest = value
-            self.descend(array, x, y+1, total=value, longest=self.longest)
-            self.descend(array, x+1, y+1, total=value, longest=self.longest)
-        except Exception:
-            pass
-        return
-
-    def get_longest(self):
-        self.descend(self.array)
-        return self.longest
+    answer = data[-1]
+    for row in data[-2::-1]:
+        answer = np.add([*map(max, zip(answer, answer[1:]))], row)
+    return answer[0]
 
 
-t = Triangle(triangle_array)
-print(t.longest)
+if __name__ == "__main__":
+    print(solve())

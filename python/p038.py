@@ -1,14 +1,22 @@
 # Pandigital multiples
 
-answer = 0
-for i in range(10_000):
-    product = ""
-    multiplier = 1
-    while len(product) < 9:
-        product += str(multiplier * i)
-        multiplier += 1
-    if ''.join(sorted(product)) == '123456789':
-        if int(product) > answer:
-            answer = int(product)
+from itertools import count
 
-print(answer)
+
+def solve():
+    return concatenated_product(max(range(10_000), key=concatenated_product))
+
+
+def concatenated_product(n):
+    x = ""
+    for i in count(1):
+        if len(x) < 9:
+            x += str(n * i)
+        elif "".join(sorted(x)) == "123456789":
+            return int(x)
+        else:
+            return 0
+
+
+if __name__ == "__main__":
+    print(solve())

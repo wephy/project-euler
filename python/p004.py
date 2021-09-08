@@ -1,11 +1,13 @@
 # Largest palindrome product
 
-answer = 0
-for x in range(999, 99, -1):
-    for product in (x * y for y in range(x, 99, -1)):
-        if product < answer:
-            break
-        if str(product) == str(product)[::-1]:
-            answer = product
+DIGITS = 3
 
-print(answer)
+
+def solve():
+    return max(p for x in range(10**(DIGITS - 1), 10**DIGITS)
+               for y in range(x, 10**DIGITS)
+               if str(p := x * y) == str(p)[::-1])
+
+
+if __name__ == "__main__":
+    print(solve())

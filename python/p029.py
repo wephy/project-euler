@@ -1,8 +1,12 @@
 # Distinct powers
 
-sequence = set()
-for a in range(2, 101):
-    for b in range(2, 101):
-        sequence.add(a ** b)
+LIMIT = 100
 
-print(len(sequence))
+
+def solve():
+    return len(
+        set([a**b for a in range(2, LIMIT + 1) for b in range(2, LIMIT + 1)]))
+
+
+if __name__ == "__main__":
+    print(solve())

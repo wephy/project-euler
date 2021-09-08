@@ -1,19 +1,20 @@
 # Spiral primes
 
 from sympy import isprime
+from itertools import count
 
 
-def solution(side=1, diagonals=[1]):
-    primes = set()
-    while True:
-        side += 2
+def solve():
+    primes = 0
+    x = 1
+    for i in count(1):
         for _ in range(4):
-            new_diagonal = diagonals[-1] + side - 1
-            diagonals.append(new_diagonal)
-            if isprime(new_diagonal):
-                primes.add(new_diagonal)
-        if len(primes) / len(diagonals) < 0.1:
-            return side
+            x += (2 * i)
+            if isprime(x):
+                primes += 1
+        if primes / ((4 * i) + 1) < 0.1:
+            return (2 * i) + 1
 
 
-print(solution())
+if __name__ == "__main__":
+    print(solve())

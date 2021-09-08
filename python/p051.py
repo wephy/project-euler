@@ -1,56 +1,24 @@
 # Prime digit replacements
 
-from sympy import sieve
-from sympy.utilities.iterables import multiset_permutations
-
-primes = set(sieve.primerange(0, 1_000_000))
+from sympy import isprime, nextprime
+from itertools import repeat
 
 
-def testable_numbers(digits, numbers, number="", min_digit=0):
-    for i in range(min_digit, 10):
-        new_number = number + str(i)
-        if len(new_number) < digits:
-            testable_numbers(
-                digits,
-                numbers,
-                number=new_number,
-                min_digit=int(new_number[0]))
-        else:
-            numbers.append(new_number)
+def solve():
+    def prime_gen():
+        n = 1
+        while True:
+            yield (n := nextprime(n))
+
+    for i in prime_gen():
+        for d in map(str, range(10)):
+            if (x := str(i)).count(d) >= 3:
+                it = iter(
+                    isprime(y) for j in range(10)
+                    if (y := int(x.replace(d, str(j)))) >= i)
+                if all(map(any, repeat(iter(it), 8))):
+                    return i
 
 
-def test_perm(perm):
-    failures = 0
-    for replacement_digit in range(10):
-        test_perm = perm.replace('*', str(replacement_digit))
-        if test_perm[0] == '0' or int(test_perm) not in primes:
-            failures += 1
-        if failures > 2:
-            return False
-    return True
-
-
-def find_perm():
-    digits = 4
-    while True:
-        numbers = []
-        testable_numbers(digits-3, numbers)
-        for test_n in numbers:
-            arrangement = [d for d in str(test_n)] + ['*', '*', '*']
-            permutations = list(multiset_permutations(arrangement))
-            for permutation in permutations:
-                permutation = ''.join(permutation)
-                if test_perm(permutation):
-                    return permutation
-        digits += 1
-
-
-def solution():
-    answer_perm = find_perm()
-    for i in range(10):
-        smallest = answer_perm.replace('*', str(i))
-        if int(smallest) in primes:
-            return smallest
-
-
-print(solution())
+if __name__ == "__main__":
+    print(solve())

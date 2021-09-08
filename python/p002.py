@@ -1,10 +1,17 @@
 # Even Fibonacci numbers
 
-a, b = 1, 2
-answer = 0
-while a < 4_000_000:
-    if a % 2 == 0:
-        answer += a
-    a, b = b, a + b
+LIMIT = 4_000_000
 
-print(answer)
+
+def solve():
+    a, b = 1, 2
+    answer = 0
+    while a < LIMIT:
+        if a % 2 == 0:
+            answer += a
+        a, b = b, a + b
+    return answer
+
+
+if __name__ == "__main__":
+    print(solve())

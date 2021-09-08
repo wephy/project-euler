@@ -1,11 +1,14 @@
 # Permuted multiples
 
-def solve(x=1):
-    while True:
-        if len(set(map(lambda x: ''.join(sorted(str(x))),
-                       [x, x*2, x*3, x*4, x*5, x*6]))) == 1:
-            return x
-        x += 1
+from itertools import count
 
 
-print(solve())
+def solve():
+    for i in count(1):
+        if len(set(map(lambda x: "".join(sorted(str(x))),
+                       [i, i * 2, i * 3, i * 4, i * 5, i * 6]))) == 1:
+            return i
+
+
+if __name__ == "__main__":
+    print(solve())

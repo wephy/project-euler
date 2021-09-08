@@ -1,8 +1,14 @@
 # Smallest multiple
 
-import numpy as np
-from math import log, floor
+from sympy import sieve
+from math import log, floor, prod
 
-primes = [2, 3, 5, 7, 11, 13, 17, 19]
+LIMIT = 20
 
-print(np.product([n ** floor(log(20, n)) for n in primes]))
+
+def solve():
+    return prod(n**floor(log(LIMIT, n)) for n in sieve.primerange(LIMIT))
+
+
+if __name__ == '__main__':
+    print(solve())

@@ -1,18 +1,19 @@
 # Sub-string divisibility
 
-from itertools import permutations
 
-primes = [2, 3, 5, 7, 11, 13, 17]
+def solve():
+    def solutions(primes, n="", remaining=set(range(10))):
+        if (length := len(n)) >= 4 and int(n[-3:]) % primes[length - 4] != 0:
+            return
+        elif not remaining:
+            yield int(n)
+        else:
+            for digit in remaining:
+                yield from solutions(primes, n + str(digit),
+                                     remaining - {digit})
 
-answer = 0
-for p in map(lambda t: ''.join(map(str, t)),
-             permutations([d for d in range(10)])):
-    failed = False
-    for i in range(7):
-        if int(p[i+1:i+4]) % primes[i] != 0:
-            failed = True
-            break
-    if not failed:
-        answer += int(p)
+    return sum(solutions([2, 3, 5, 7, 11, 13, 17]))
 
-print(answer)
+
+if __name__ == "__main__":
+    print(solve())

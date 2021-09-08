@@ -2,9 +2,21 @@
 
 from sympy import nextprime
 
-answer = x = 1
-while answer * x < 1_000_000:
-    answer *= x
-    x = nextprime(x)
+LIMIT = 1_000_000
 
-print(answer)
+
+def solve():
+    def prime_gen():
+        i = 1
+        while True:
+            yield (i := nextprime(i))
+
+    x = 1
+    for p in prime_gen():
+        if (y := x * p) > LIMIT:
+            return x
+        x = y
+
+
+if __name__ == "__main__":
+    print(solve())

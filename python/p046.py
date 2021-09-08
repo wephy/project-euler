@@ -1,24 +1,18 @@
 # Goldbach's other conjecture
 
-from time import time
 from sympy import isprime
-
-start = time()
-
-squares = set()
-primes = set([2])
+from itertools import count
 
 
-def find_c(i=1):
-    if (i ** 0.5) % 1 == 0:
-        squares.add(i)
-    if i > 10_000:
-        return
-    find_c(i+1)
+def solve():
+    primes = set([2])
+    for i in count(3, 2):
+        if isprime(i):
+            primes.add(i)
+        else:
+            if not any(map(lambda x: ((i - x) / 2)**0.5 % 1 == 0, primes)):
+                return i
 
 
-find_c()
-print(squares)
-
-
-print(time() - start)
+if __name__ == "__main__":
+    print(solve())

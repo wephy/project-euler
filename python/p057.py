@@ -1,21 +1,18 @@
 # Square root convergents
 
-import fractions
+from math import log10
 
 
-def sqrt2(n):
-    denom = 2
-    for _ in range(n - 1):
-        denom = 2 + fractions.Fraction(1, denom)
-    return 1 + fractions.Fraction(1, denom)
+def solve():
+    def frac_gen():
+        n = 3
+        d = 2
+        for _ in range(1000):
+            yield n, d
+            n, d = (2 * d) + n, n + d
+
+    return sum(int(log10(x)) > int(log10(y)) for x, y in frac_gen())
 
 
-answer = 0
-for n in range(1_001):
-    fraction = sqrt2(n)
-    numerator = fraction.numerator
-    denominator = fraction.denominator
-    if len(str(numerator)) > len(str(denominator)):
-        answer += 1
-
-print(answer)
+if __name__ == "__main__":
+    print(solve())

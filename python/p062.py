@@ -1,16 +1,22 @@
 # Cubic permutations
 
-i = hash = 0
-perms = {i: hash}
-while perms[hash] != 5:
-    hash = tuple(sorted([*str(i ** 3)]))
-    if hash not in perms:
-        perms[hash] = 0
-    perms[hash] += 1
-    i += 1
+from itertools import count
 
-i = 0
-while tuple(sorted([*str(i ** 3)])) != hash:
-    i += 1
 
-print(i ** 3)
+def solve():
+    perms = {}
+    for i in count():
+        x = hash(tuple(sorted(str(i**3))))
+        if x not in perms:
+            perms[x] = 0
+        perms[x] += 1
+        if perms[x] == 5:
+            break
+
+    for i in count():
+        if hash(tuple(sorted(str(i**3)))) == x:
+            return i**3
+
+
+if __name__ == "__main__":
+    print(solve())

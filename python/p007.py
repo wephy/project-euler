@@ -2,4 +2,10 @@
 
 from sympy import sieve
 
-print(sieve[10_001])
+
+def solve():
+    return sieve[10_001]
+
+
+if __name__ == "__main__":
+    print(solve())

@@ -1,11 +1,13 @@
 # Powerful digit counts
 
-import numpy as np
+from math import log10
 
-answer = 0
-for a in range(1, 10):
-    for b in range(1, int(1 / (1 - np.log10(9))) + 1):
-        if len(str(a ** b)) == b:
-            answer += 1
 
-print(answer)
+def solve():
+    return sum(
+        len(str(a**b)) == b for a in range(1, 10)
+        for b in range(1, int(1 / log10(10 / 9)) + 1))
+
+
+if __name__ == "__main__":
+    print(solve())

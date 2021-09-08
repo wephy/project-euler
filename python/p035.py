@@ -1,22 +1,20 @@
 # Circular primes
 
-composites = set()
-primes = set()
-for i in range(2, 1_000_000):
-    if i not in composites:
-        primes.add(str(i))
-        for p in range(i * 2, 1_000_000, i):
-            composites.add(p)
+from sympy import sieve
 
-answer = 0
-for prime in primes:
-    failed = False
-    for _ in range(len(prime)):
-        prime = prime[-1] + prime[:-1]
-        if prime not in primes:
-            failed = True
-            break
-    if not failed:
-        answer += 1
+LIMIT = 1_000_000
 
-print(answer)
+
+def solve():
+    candidates = set(map(str, filter(
+        lambda x: not any(int(digit) % 2 == 0 for digit in str(x)),
+        sieve.primerange(LIMIT))
+        ))
+
+    return 1 + sum(
+        all(n[i:] + n[:i] in candidates for i in range(len(n)))
+        for n in candidates)
+
+
+if __name__ == "__main__":
+    print(solve())

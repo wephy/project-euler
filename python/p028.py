@@ -1,12 +1,12 @@
 # Number spiral diagonals
 
-answer = 1
-step = 0
-current = 1
-for i in range((1001 - 1) // 2):
-    step += 2
-    for _ in range(4):
-        current += step
-        answer += current
+SIZE = 1001
 
-print(answer)
+
+def solve():
+    n = (SIZE - 1) // 2
+    return 1 + (10 * n**2) + ((16 * n**3) + (26 * n)) // 3
+
+
+if __name__ == "__main__":
+    print(solve())

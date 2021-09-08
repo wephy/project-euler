@@ -1,16 +1,18 @@
 # Lychrel numbers
 
-def lychrel(n):
-    for _ in range(50):
-        n = int(n) + int(str(n)[::-1])
-        if str(n) == str(n)[::-1]:
-            return False
-    return True
+LIMIT = 10_000
 
 
-answer = 0
-for n in range(10_000):
-    if lychrel(n):
-        answer += 1
+def solve():
+    def is_lychrel(n):
+        for _ in range(50):
+            n = n + int(str(n)[::-1])
+            if str(n) == str(n)[::-1]:
+                return False
+        return True
 
-print(answer)
+    return sum(is_lychrel(i) for i in range(1, LIMIT))
+
+
+if __name__ == "__main__":
+    print(solve())
