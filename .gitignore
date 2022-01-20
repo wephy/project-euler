@@ -130,3 +130,6 @@ dmypy.json
 
 # Miscellaneous
 .vscode
+
+# Java files
+*.class
