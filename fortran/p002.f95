@@ -2,8 +2,7 @@
 
 module data
 implicit none
-    integer :: LIMIT = 4000000
-    integer :: fibs
+    integer :: fibs, LIMIT = 4000000
     integer, dimension(:), allocatable :: table
 
     contains
@@ -12,6 +11,7 @@ implicit none
         allocate(table(fibs))
     end subroutine initialise
 end module data
+
 
 recursive integer function fibonacci(n) result(res)
 use data, only : table
@@ -28,8 +28,9 @@ implicit none
     res = table(n)
 end function fibonacci
 
+
 integer function solve()
-use data, only : LIMIT, fibs, table
+use data, only : fibs, LIMIT, table
 implicit none
     integer :: i, x, fibonacci
 
@@ -42,8 +43,10 @@ implicit none
     end do
 end function solve
 
+
 program p002
-    use data, only : initialise
+use data, only : initialise
+implicit none
     integer :: x, solve
     
     call initialise
